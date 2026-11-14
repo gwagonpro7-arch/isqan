@@ -1,5 +1,6 @@
+
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>بوابة الإسكان الدين والأوقاف</title>
+<title>بوابة الإسكان والأوقاف</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Tajawal:wght@500;700;800&display=swap">
 <style>
@@ -226,6 +227,113 @@ button.item:hover { transform: translateY(-3px); border-color: var(--accent); }
 .lb-media.big { width: max(1000px, 220%); cursor: zoom-out; }
 .lb-media.big img { width: 100%; height: auto; max-width: none; }
 
+/* Motion + new sections */
+@keyframes rise { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sheetIn { from { opacity: 0; transform: translateY(28px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes popin { from { opacity: 0; transform: scale(.55); } to { opacity: 1; transform: none; } }
+@keyframes march { to { stroke-dashoffset: -32; } }
+@keyframes pulse { 0% { transform: scale(1); opacity: .85; } 70% { transform: scale(3); opacity: 0; } 100% { transform: scale(3); opacity: 0; } }
+@keyframes beat { 0% { transform: scale(1); } 35% { transform: scale(1.4); } 100% { transform: scale(1); } }
+@keyframes drift1 { 50% { transform: translate(60px, 40px) scale(1.12); } }
+@keyframes drift2 { 50% { transform: translate(-50px, -40px) scale(1.1); } }
+.anim .head, .anim .hero, .anim .entry, .anim .item, .anim .card, .anim .chips, .rise {
+  animation: rise .6s cubic-bezier(.2, .7, .2, 1) backwards; animation-delay: calc(var(--i, 0) * 55ms);
+}
+.anim .map g { transform-box: fill-box; transform-origin: center; animation: popin .45s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(var(--d, 0) * 22ms + 150ms); }
+.anim .grow { transform-origin: right center; animation: grow 1s cubic-bezier(.2, .8, .2, 1) .25s backwards; }
+.modal.pop { animation: fadeIn .25s both; }
+.modal.pop .sheet { animation: sheetIn .4s cubic-bezier(.2, .8, .2, 1) both; }
+.lightbox.pop { animation: fadeIn .25s both; }
+.lightbox.pop .lb-media { animation: sheetIn .45s cubic-bezier(.2, .8, .2, 1) both; }
+.modal { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.bound { stroke-dasharray: 10 6; animation: march 1.4s linear infinite; }
+.pulse { transform-box: fill-box; transform-origin: center; animation: pulse 1.9s ease-out infinite; }
+
+.blobs { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.blobs i { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .42; background: var(--accent); }
+.blobs i:nth-child(1) { width: 420px; height: 420px; top: -120px; inset-inline-start: -80px; animation: drift1 22s ease-in-out infinite; }
+.blobs i:nth-child(2) { width: 360px; height: 360px; bottom: -100px; inset-inline-end: -60px; background: var(--accent-2); animation: drift2 28s ease-in-out infinite; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .blobs i { opacity: .2; } }
+:root[data-theme="dark"] .blobs i { opacity: .2; }
+.app { position: relative; z-index: 1; }
+
+.nav a svg { transition: transform .2s; }
+.nav a:hover svg { transform: scale(1.15); }
+.badge[hidden] { display: none; }
+.badge { margin-inline-start: auto; background: var(--bad); color: #fff; border-radius: 99px; font-style: normal; font-size: 12px; min-width: 22px; height: 22px; display: grid; place-items: center; padding: 0 6px; }
+.wa, .locbtn, .chip, .fav, .primary { transition: transform .15s, background .15s, border-color .15s, color .15s; }
+.wa:active, .locbtn:active, .chip:active { transform: scale(.97); }
+
+.hero { display: flex; flex-direction: column; gap: 14px; background: linear-gradient(135deg, var(--surface-strong), var(--surface)); }
+.hero h2 { font-size: 24px; font-weight: 800; }
+.hero p { margin: 4px 0 0; }
+.searchbox { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); background: var(--surface-strong); border-radius: 16px; padding: 2px 16px; transition: border-color .2s, box-shadow .2s; }
+.searchbox:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.searchbox span { color: var(--accent); display: grid; }
+.searchbox input { flex: 1; min-width: 0; border: none; background: transparent; color: var(--fg); font: inherit; font-size: 16px; padding: 13px 0; outline: none; }
+.results { display: flex; flex-direction: column; gap: 6px; }
+.res { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; text-align: start; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); animation: rise .35s cubic-bezier(.2, .7, .2, 1) backwards; transition: border-color .15s, transform .15s; }
+.res:hover { border-color: var(--accent); transform: translateX(-3px); }
+.res > span:first-child { min-width: 0; }
+.rowbtn { display: flex; justify-content: space-between; gap: 12px; width: 100%; background: none; border: none; padding: 0; text-align: start; }
+.rowbtn:hover b { color: var(--accent); }
+
+.fav { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface-strong); color: var(--muted); display: grid; place-items: center; flex: none; padding: 0; }
+.fav:hover { color: var(--bad); border-color: var(--bad); }
+.fav.on { color: var(--bad); border-color: var(--bad); background: var(--bad-soft); }
+.fav.on svg { fill: currentColor; }
+.fav.beat svg { animation: beat .45s ease; }
+.fav-row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+
+.calc { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.ctl { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.ctl label { font-weight: 500; }
+.ctl .val { font-family: var(--font-display); font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); }
+.num { width: 100%; border: 1px solid var(--line); background: var(--surface-strong); color: var(--fg); border-radius: 14px; padding: 12px 14px; font: inherit; font-size: 18px; font-variant-numeric: tabular-nums; direction: ltr; text-align: end; }
+.num:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.ringwrap { position: relative; display: grid; place-items: center; margin: 4px 0 16px; }
+.ringwrap svg { transform: rotate(-90deg); max-width: 100%; height: auto; }
+.ring-bg { fill: none; stroke: var(--warn); stroke-width: 14; opacity: .4; }
+.ring-fg { fill: none; stroke: var(--accent); stroke-width: 14; stroke-linecap: round; transition: stroke-dasharray .8s cubic-bezier(.2, .8, .2, 1); }
+.ringc { position: absolute; text-align: center; line-height: 1.3; }
+.ringc small { display: block; color: var(--muted); }
+.ringc b { font-family: var(--font-display); font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.empty { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 36px 20px; }
+@media (max-width: 860px) { .calc { grid-template-columns: minmax(0, 1fr); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* mosque contributions */
+.mphoto { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; background: var(--line); max-width: 100%; }
+.mphoto.big { aspect-ratio: 4 / 3; }
+.addbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.addbar h2 { font-size: 19px; }
+.primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; border: none; border-radius: 14px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--accent-fg); font-weight: 600; }
+.primary:disabled { opacity: .6; cursor: default; }
+.primary:active { transform: scale(.97); }
+.frm { display: flex; flex-direction: column; gap: 18px; max-width: 820px; min-width: 0; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 16px; min-width: 0; }
+.inp { width: 100%; min-width: 0; border: 1px solid var(--line); background: var(--surface-strong); color: var(--fg); border-radius: 14px; padding: 11px 14px; font: inherit; font-size: 15px; }
+textarea.inp { resize: vertical; min-height: 84px; }
+.inp:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.rows { display: flex; flex-direction: column; gap: 10px; }
+.arow { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.x { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface-strong); color: var(--muted); display: grid; place-items: center; padding: 0; }
+.x:hover { color: var(--bad); border-color: var(--bad); }
+.drop { display: grid; place-items: center; min-height: 150px; border: 2px dashed var(--line); border-radius: 16px; color: var(--accent); cursor: pointer; overflow: hidden; text-align: center; transition: border-color .15s, background .15s; }
+.drop:hover, .drop:focus-within { border-color: var(--accent); background: var(--accent-soft); }
+.drop > span { display: flex; align-items: center; gap: 8px; padding: 20px; font-weight: 500; }
+.drop .mphoto { border-radius: 0; }
+.sr { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+.danger { border-color: var(--bad); color: var(--bad); }
+.danger:hover { background: var(--bad-soft); }
+@media (max-width: 640px) { .arow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; } .arow [data-r="n"] { grid-column: 1 / -1; } }
+
 /* Plot map */
 .map { width: 100%; height: auto; display: block; border-radius: 16px; background: var(--surface-strong); }
 .map text { font-family: var(--font-body); fill: var(--fg); }
@@ -263,9 +371,9 @@ button.item:hover { transform: translateY(-3px); border-color: var(--accent); }
   .head h1 { font-size: 32px; }
   .split { grid-template-columns: minmax(0, 1fr); }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
+<div class="blobs" aria-hidden="true"><i></i><i></i></div>
 <div class="app" dir="rtl" lang="ar">
   <aside class="side">
     <div class="brand">
@@ -277,6 +385,8 @@ button.item:hover { transform: translateY(-3px); border-color: var(--accent); }
       <a href="#housing" data-nav="housing" id="n-housing"></a>
       <a href="#land" data-nav="land" id="n-land"></a>
       <a href="#mosques" data-nav="mosques" id="n-mosques"></a>
+      <a href="#calc" data-nav="calc" id="n-calc"></a>
+      <a href="#favs" data-nav="favs" id="n-favs"></a>
     </nav>
     <div class="side-foot">للتواصل المباشر اضغط على زر واتساب داخل كل عرض.</div>
   </aside>
@@ -291,7 +401,7 @@ document.documentElement.lang = "ar";
 const WA = "96890000000"; /* رقم واتساب تجريبي بصيغة دولية بدون + */
 
 const AREAS = [
-  { id: "waha", name: "مخطط الواحة السكني", wilaya: "نزوي", rate: 36, seed: 2, contact: "مكتب مبيعات الواحة", phone: WA,
+  { id: "waha", name: "مخطط الواحة السكني", wilaya: "صحار", rate: 36, seed: 2, contact: "مكتب مبيعات الواحة", phone: WA,
     desc: "مخطط سكني جديد قريب من الشارع العام، قطع بمساحات مناسبة للأسر.",
     facilities: ["شوارع معبّدة", "كهرباء وماء", "مدرسة قريبة", "مركز تجاري قريب"] },
   { id: "naseem", name: "مخطط النسيم", wilaya: "لوى", rate: 28, seed: 4, contact: "مكتب مبيعات النسيم", phone: WA,
@@ -344,6 +454,8 @@ const MOSQUES = [
     needs: "توسعة موقف السيارات." }
 ];
 
+[[8000, 5200], [3500, 900], [2200, 1650], [12000, 4300]].forEach((v, i) => { MOSQUES[i].goal = v[0]; MOSQUES[i].raised = v[1]; });
+
 /* ============ أدوات ============ */
 const fmt = n => Number(n).toLocaleString("en-US");
 const omr = n => fmt(n) + " ر.ع.";
@@ -360,20 +472,31 @@ const I = {
   back: '<path d="M9 6l6 6-6 6"/>',
   pin: '<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
   x: '<path d="M6 6l12 12M18 6L6 18"/>',
-  zoom: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/>'
+  zoom: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/>',
+  mosques: '<path d="M5 21v-7a7 7 0 0 1 14 0v7M2 21h20M12 3v3M10 21v-4a2 2 0 0 1 4 0v4"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+  favs: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  calc: '<rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/>'
 };
 const svg = (k, s = 22) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`;
 
 document.getElementById("brandmark").innerHTML = svg("housing", 22);
-[["home", "الرئيسية"], ["housing", "الإسكان"], ["land", "الأراضي والمبيعات"], ["mosques", "المساجد"]]
+[["home", "الرئيسية"], ["housing", "الإسكان"], ["land", "الأراضي والمبيعات"], ["mosques", "المساجد"], ["calc", "الحاسبة"], ["favs", "المفضلة"]]
   .forEach(([k, t]) => { document.getElementById("n-" + k).innerHTML = svg(k, 20) + "<span>" + t + "</span>"; });
+document.getElementById("n-favs").insertAdjacentHTML("beforeend", '<em class="badge" id="favN" hidden>0</em>');
 
 /* ============ الحالة ============ */
-const S = { area: null, plot: null, filter: "الكل", mosque: null, loc: null, zoom: 0 };
+const S = { area: null, plot: null, filter: "الكل", mosque: null, loc: null, zoom: 0, pop: null, form: null, calc: { price: 31000, down: 20, years: 10, rate: 5 } };
+let FAVS = [];
+try { FAVS = JSON.parse(localStorage.getItem("bawaba-fav") || "[]"); if (!Array.isArray(FAVS)) FAVS = []; } catch (e) { FAVS = []; }
+const isFav = k => FAVS.indexOf(k) >= 0;
+function saveFav() { try { localStorage.setItem("bawaba-fav", JSON.stringify(FAVS)); } catch (e) { /* التخزين غير متاح */ } }
+const favBtn = (k, label) => `<button class="fav ${isFav(k) ? "on" : ""}" data-act="fav" data-k="${k}" aria-pressed="${isFav(k)}" aria-label="${label}">${svg("favs", 20)}</button>`;
 
 /* ============ الصفحات ============ */
 function header(hello, title) {
-  return `<header class="head"><div><div class="hello">${hello}</div><h1>${title}</h1></div><span class="tag">بيانات تجريبية</span></header>`;
+  return `<header class="head"><div><div class="hello">${esc(hello)}</div><h1>${esc(title)}</h1></div><span class="tag">بيانات تجريبية</span></header>`;
 }
 function waBtn(num, msg, label, off) {
   return off ? `<span class="wa" aria-disabled="true">${svg("wa", 20)}<span>${label}</span></span>`
@@ -385,18 +508,45 @@ function pHome() {
   const entries = [
     ["housing", "الإسكان", "تصفح مخططات الإسكان، شاهد الخريطة وأسعار القطع، وتواصل مع المسؤول عبر واتساب.", AREAS.length + " مخططات"],
     ["land", "الأراضي والمبيعات", "أراضٍ سكنية وتجارية وزراعية للبيع، مع المساحة والسعر وزر تواصل مباشر.", LANDS.length + " عروض"],
-    ["mosques", "المساجد", "معلومات المساجد وأوقافها: أصول الوقف، العوائد، والاحتياجات.", MOSQUES.length + " مساجد"]
+    ["mosques", "المساجد", "معلومات المساجد وأوقافها: أصول الوقف، العوائد، ومشاريع المساهمة.", mosqueList().length + " مساجد"],
+    ["calc", "الحاسبة", "احسب القسط الشهري لشراء أرض حسب الدفعة الأولى والمدة.", "جرّب الآن"],
+    ["favs", "المفضلة", "الأراضي والقطع التي حفظتها لتعود إليها بسرعة.", FAVS.length + " محفوظ"]
   ];
+  const stat = (ico, label, n) => `<div class="card stat"><div class="ico">${svg(ico)}</div><div><small>${label}</small><b data-count="${n}">${n}</b></div></div>`;
   return header("مرحبًا بك", "الرئيسية") + `
+  <section class="card hero">
+    <div><h2>ابحث عن أرض أو مخطط أو مسجد</h2><p class="muted">اكتب اسم المنطقة أو نوع الأرض.</p></div>
+    <div class="searchbox"><span>${svg("search", 20)}</span><input id="q" type="search" placeholder="مثال: السيب، صحار، مزرعة" autocomplete="off" aria-label="بحث في الموقع"></div>
+    <div class="results" id="results" aria-live="polite"></div>
+  </section>
+  <div class="grid g4">
+    ${stat("housing", "قطع سكنية متاحة", freeCount)}${stat("land", "أراضٍ معروضة للبيع", LANDS.length)}${stat("mosque", "مساجد مسجّلة", mosqueList().length)}
+    <div class="card promo"><small>تواصل سريع</small><h3>اسأل عبر واتساب</h3><p>زر واحد داخل كل عرض يفتح المحادثة برسالة جاهزة.</p></div>
+  </div>
   <div class="grid g3">${entries.map(e => `
     <a class="entry" href="#${e[0]}"><div class="ico">${svg(e[0], 24)}</div><h3>${e[1]}</h3><p>${e[2]}</p><span class="go">${e[3]} ←</span></a>`).join("")}
   </div>
-  <div class="grid g4">
-    <div class="card stat"><div class="ico">${svg("housing")}</div><div><small>قطع سكنية متاحة</small><b>${freeCount}</b></div></div>
-    <div class="card stat"><div class="ico">${svg("land")}</div><div><small>أراضٍ معروضة للبيع</small><b>${LANDS.length}</b></div></div>
-    <div class="card stat"><div class="ico">${svg("mosque")}</div><div><small>مساجد مسجّلة</small><b>${MOSQUES.length}</b></div></div>
-    <div class="card promo"><small>تواصل سريع</small><h3>اسأل عبر واتساب</h3><p>زر واحد داخل كل عرض يفتح المحادثة برسالة جاهزة.</p></div>
-  </div>`;
+  <section class="card"><div class="card-title"><h2>أحدث العروض</h2><a class="go" href="#land" style="color:var(--accent);font-weight:600">كل الأراضي ←</a></div>
+    <ul class="list">${LANDS.slice(0, 3).map(l => `<li><button class="rowbtn" data-act="open-land" data-id="${l.id}"><span>${l.title} <span class="muted">· ${l.loc}</span></span><b>${l.price ? omr(l.price) : "السعر عند التواصل"}</b></button></li>`).join("")}</ul>
+  </section>`;
+}
+
+const norm = t => String(t || "").toLowerCase().replace(/[ً-ٟـ]/g, "").replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي");
+function searchAll(q) {
+  const n = norm(q), out = [];
+  AREAS.forEach(a => { if (norm([a.name, a.wilaya, a.desc].join(" ")).includes(n)) out.push({ t: "مخطط", n: a.name, s: a.wilaya, act: "go-area", id: a.id }); });
+  LANDS.forEach(l => { if (norm([l.title, l.loc, l.type].join(" ")).includes(n)) out.push({ t: "أرض", n: l.title, s: l.loc + " · " + fmt(l.size) + " م²", act: "open-land", id: l.id }); });
+  mosqueList().forEach(m => { if (norm([m.name, m.wilaya].join(" ")).includes(n)) out.push({ t: "مسجد", n: m.name, s: m.wilaya, act: "go-mosque", id: m.id }); });
+  return out.slice(0, 8);
+}
+function renderResults(v) {
+  const box = document.getElementById("results"); if (!box) return;
+  const q = v.trim();
+  if (!q) { box.innerHTML = ""; return; }
+  const res = searchAll(q);
+  box.innerHTML = res.length
+    ? res.map((r, i) => `<button class="res" style="animation-delay:${i * 40}ms" data-act="${r.act}" data-id="${r.id}"><span><span class="pill info">${r.t}</span> ${esc(r.n)}</span><span class="muted">${esc(r.s)}</span></button>`).join("")
+    : '<div class="muted">لا توجد نتائج للبحث.</div>';
 }
 
 function mapSvg(a) {
@@ -409,7 +559,7 @@ function mapSvg(a) {
     const x = 14 + (5 - c) * 91;
     const y = r < 2 ? 14 + r * 62 : 178 + 6 + (r - 2) * 62 - 0;
     const sel = S.plot === i ? " sel" : "";
-    out += `<g><rect class="plot p-${p.status}${sel}" x="${x}" y="${y}" width="85" height="56" rx="8" data-act="plot" data-i="${i}" role="button" tabindex="0" aria-label="قطعة ${p.n}، ${ST[p.status][0]}"/>
+    out += `<g style="--d:${i}"><rect class="plot p-${p.status}${sel}" x="${x}" y="${y}" width="85" height="56" rx="8" data-act="plot" data-i="${i}" role="button" tabindex="0" aria-label="قطعة ${p.n}، ${ST[p.status][0]}"/>
       <text x="${x + 42.5}" y="${y + 27}" text-anchor="middle" font-size="16" font-weight="600" pointer-events="none">${p.n}</text>
       <text x="${x + 42.5}" y="${y + 44}" text-anchor="middle" font-size="11" style="fill:var(--muted)" pointer-events="none">${p.size} م²</text></g>`;
   });
@@ -442,8 +592,8 @@ function pHousing() {
     </section>
     <div class="grid">
       <section class="card" aria-live="polite">
-        <div class="card-title"><h2>قطعة رقم ${p.n}</h2><span class="pill ${st[1]}">${st[0]}</span></div>
-        <div class="price" style="font-size:34px;margin-bottom:12px">${omr(p.price)}</div>
+        <div class="card-title"><h2>قطعة رقم ${p.n}</h2><span class="fav-row"><span class="pill ${st[1]}">${st[0]}</span>${favBtn("plot:" + a.id + ":" + p.n, "حفظ القطعة في المفضلة")}</span></div>
+        <div class="price" style="font-size:34px;margin-bottom:12px"><span data-count="${p.price}" data-suffix=" ر.ع." data-dur="500">${omr(p.price)}</span></div>
         <dl class="kv" style="margin-bottom:16px">
           <dt>المساحة</dt><dd>${fmt(p.size)} م²</dd>
           <dt>سعر المتر</dt><dd>${a.rate} ر.ع.</dd>
@@ -460,56 +610,292 @@ function pHousing() {
   </div>`;
 }
 
+function landCard(l) {
+  const msg = `السلام عليكم، أرغب بالاستفسار عن "${l.title}" في ${l.loc} (${fmt(l.size)} م²)${l.price ? " بسعر " + fmt(l.price) + " ر.ع." : ""}`;
+  return `<article class="item">
+    <div class="row"><h3>${l.title}</h3><span class="fav-row"><span class="pill info">${l.type}</span>${favBtn("land:" + l.id, "حفظ الأرض في المفضلة")}</span></div>
+    <div class="muted">${l.loc}</div>
+    <dl class="kv"><dt>المساحة</dt><dd>${fmt(l.size)} م²</dd><dt>سعر المتر</dt><dd>${l.price ? (l.price / l.size).toFixed(1) + " ر.ع." : "عند التواصل"}</dd></dl>
+    <div class="price">${l.price ? omr(l.price) : "<small>السعر عند التواصل</small>"}</div>
+    <div class="btns">${waBtn(WA, msg, "تواصل عبر واتساب")}<button class="locbtn" data-act="loc" data-id="${l.id}">${svg("pin", 20)}<span>الموقع</span></button></div>
+    <div style="text-align:center"><span class="phone">${phoneTxt(WA)}</span></div>
+  </article>`;
+}
+
 function pLand() {
   const types = ["الكل", "سكني", "تجاري", "زراعي"];
   const list = LANDS.filter(l => S.filter === "الكل" || l.type === S.filter);
   return header("الأراضي والمبيعات", "أراضٍ للبيع") +
     `<div class="chips" role="group" aria-label="نوع الأرض">${types.map(t => `<button class="chip ${S.filter === t ? "on" : ""}" data-act="chip" data-t="${t}">${t}</button>`).join("")}</div>
-    <div class="grid g3">${list.map(l => {
-      const msg = `السلام عليكم، أرغب بالاستفسار عن "${l.title}" في ${l.loc} (${fmt(l.size)} م²) ${l.price ? " بسعر " + fmt(l.price) + " ر.ع." : ""}`;
-      return `<article class="item">
-        <div class="row"><h3>${l.title}</h3><span class="pill info">${l.type}</span></div>
-        <div class="muted">${l.loc}</div>
-        <dl class="kv"><dt>المساحة</dt><dd>${fmt(l.size)} م²</dd><dt>سعر المتر</dt><dd>${l.price ? (l.price / l.size).toFixed(1) + " ر.ع." : "عند التواصل"}</dd></dl>
-        <div class="price">${l.price ? omr(l.price) : "<small>السعر عند التواصل</small>"}</div>
-        <div class="btns">${waBtn(WA, msg, "تواصل عبر واتساب")}<button class="locbtn" data-act="loc" data-id="${l.id}">${svg("pin", 20)}<span>الموقع</span></button></div>
-        <div style="text-align:center"><span class="phone">${phoneTxt(WA)}</span></div>
-      </article>`;
-    }).join("")}</div>` + (S.loc ? locModal(LANDS.find(x => x.id === S.loc)) : "");
+    <div class="grid g3">${list.map(landCard).join("")}</div>` + (S.loc ? locModal(LANDS.find(x => x.id === S.loc)) : "");
+}
+
+function pFavs() {
+  const lands = LANDS.filter(l => isFav("land:" + l.id));
+  const plots = FAVS.filter(k => k.indexOf("plot:") === 0).map(k => {
+    const parts = k.split(":"), a = AREAS.find(x => x.id === parts[1]), p = a && a.plots.find(x => x.n === +parts[2]);
+    return a && p ? { a, p, k } : null;
+  }).filter(Boolean);
+  let body;
+  if (!lands.length && !plots.length) {
+    body = `<section class="card empty"><div class="ico">${svg("favs", 24)}</div><h2>لا يوجد شيء محفوظ بعد</h2><p class="muted" style="margin:0">اضغط على القلب في أي أرض أو قطعة لتجدها هنا.</p></section>`;
+  } else {
+    body = (lands.length ? `<h2 style="font-size:19px">الأراضي المحفوظة</h2><div class="grid g3">${lands.map(landCard).join("")}</div>` : "") +
+      (plots.length ? `<h2 style="font-size:19px">القطع المحفوظة</h2><div class="grid g3">${plots.map(({ a, p, k }) => {
+        const st = ST[p.status], msg = `السلام عليكم، أرغب بالاستفسار عن القطعة رقم ${p.n} في ${a.name} - ${a.wilaya} (${p.size} م²) بسعر ${fmt(p.price)} ر.ع.`;
+        return `<article class="item"><div class="row"><h3>قطعة ${p.n} · ${a.name}</h3>${favBtn(k, "إزالة من المفضلة")}</div>
+          <div class="muted">${a.wilaya} · ${fmt(p.size)} م²</div>
+          <div class="row"><span class="pill ${st[1]}">${st[0]}</span><span class="price">${omr(p.price)}</span></div>
+          <div class="btns">${waBtn(a.phone, msg, p.status === "sold" ? "القطعة مباعة" : "تواصل عبر واتساب", p.status === "sold")}<button class="locbtn" data-act="go-plot" data-id="${a.id}" data-i="${p.n - 1}">${svg("pin", 20)}<span>على الخريطة</span></button></div></article>`;
+      }).join("")}</div>` : "");
+  }
+  return header("المفضلة", "مفضلتي") + body + (S.loc ? locModal(LANDS.find(x => x.id === S.loc)) : "");
+}
+
+const RING = 2 * Math.PI * 54;
+function calcOut() {
+  const c = S.calc, loan = c.price * (1 - c.down / 100), n = Math.max(1, c.years) * 12, r = c.rate / 100 / 12;
+  const m = r === 0 ? loan / n : loan * r / (1 - Math.pow(1 + r, -n));
+  const total = m * n;
+  return { loan, m, total, interest: total - loan, downAmt: c.price - loan };
+}
+function updateRing() {
+  const fg = document.getElementById("ringFg"); if (!fg) return;
+  const o = calcOut(), share = o.total > 0 ? o.loan / o.total : 1;
+  fg.style.strokeDasharray = (share * RING).toFixed(1) + " " + RING.toFixed(1);
+}
+function updateCalc() {
+  const o = calcOut();
+  [["cm", o.m], ["cl", o.loan], ["cd", o.downAmt], ["ci", o.interest], ["ct", o.total]].forEach(([id, v]) => { const el = document.getElementById(id); if (el) setNum(el, v, 450); });
+  updateRing();
+}
+function pCalc() {
+  const c = S.calc, o = calcOut(), priced = LANDS.filter(l => l.price);
+  const num = (id, v) => `<b id="${id}" data-count="${v}" data-suffix=" ر.ع.">${fmt(Math.round(v))} ر.ع.</b>`;
+  return header("الحاسبة", "حاسبة التمويل") + `
+  <div class="calc">
+    <section class="card">
+      <div class="card-title"><h2>بيانات الشراء</h2></div>
+      <div class="ctl"><label for="cPrice">سعر الأرض (ر.ع.)</label><input class="num" id="cPrice" type="number" inputmode="numeric" min="0" step="500" value="${c.price}" data-calc="price"></div>
+      <div class="ctl"><div class="row"><label for="cDown">الدفعة الأولى</label><span class="val"><span data-lab="down">${c.down}</span>%</span></div><input id="cDown" type="range" min="0" max="80" step="5" value="${c.down}" data-calc="down"></div>
+      <div class="ctl"><div class="row"><label for="cYears">مدة السداد</label><span class="val"><span data-lab="years">${c.years}</span> سنة</span></div><input id="cYears" type="range" min="1" max="25" step="1" value="${c.years}" data-calc="years"></div>
+      <div class="ctl"><div class="row"><label for="cRate">نسبة الربح السنوية</label><span class="val"><span data-lab="rate">${c.rate}</span>%</span></div><input id="cRate" type="range" min="0" max="10" step="0.25" value="${c.rate}" data-calc="rate"></div>
+      <div class="note">اختر سعرًا من الأراضي المعروضة:</div>
+      <div class="chips" style="margin-top:8px">${priced.map(l => `<button class="chip" data-act="calc-land" data-id="${l.id}">${l.title} · ${fmt(l.price)}</button>`).join("")}</div>
+    </section>
+    <section class="card">
+      <div class="card-title"><h2>القسط الشهري</h2></div>
+      <div class="ringwrap"><svg viewBox="0 0 140 140" width="200" height="200" aria-hidden="true"><circle class="ring-bg" cx="70" cy="70" r="54"/><circle id="ringFg" class="ring-fg" cx="70" cy="70" r="54" style="stroke-dasharray:0 ${RING.toFixed(1)}"/></svg>
+        <div class="ringc"><small>شهريًا</small>${num("cm", o.m)}</div></div>
+      <dl class="kv"><dt>مبلغ التمويل</dt><dd>${num("cl", o.loan)}</dd><dt>الدفعة الأولى</dt><dd>${num("cd", o.downAmt)}</dd><dt>إجمالي الأرباح</dt><dd>${num("ci", o.interest)}</dd><dt>إجمالي السداد</dt><dd>${num("ct", o.total)}</dd></dl>
+      <div class="legend"><span><i style="background:var(--accent)"></i>أصل المبلغ</span><span><i style="background:var(--warn)"></i>الأرباح</span></div>
+      <p class="note" style="margin:12px 0 0">تقدير تقريبي للتوضيح فقط، وليس عرضًا من بنك.</p>
+    </section>
+  </div>`;
+}
+
+/* ============ مساجد يضيفها الزوار ============ */
+let USER = null, DB = null, PROF = {}, INIT = false, USERM = [];
+const ME = { id: null, name: "", admin: false, canWrite: false };
+let FORM = { photo: "", busy: false };
+const esc = t => String(t == null ? "" : t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const canAdd = () => !!(DB && ME.id && ME.canWrite);
+const canEditM = m => !!(m && m.user && DB && ME.id && ME.canWrite && (m.owner === ME.id || ME.admin));
+const sumInc = m => m.assets.reduce((s, a) => s + a[2], 0);
+const pctOf = m => m.goal ? Math.min(100, Math.round(m.raised / m.goal * 100)) : 0;
+const dash = (v, suf) => v ? fmt(v) + (suf || "") : "غير مذكور";
+
+function cleanM(id, d) {
+  const n = v => { v = +v; return isFinite(v) && v >= 0 ? v : 0; };
+  const s = (v, l) => String(v == null ? "" : v).slice(0, l);
+  const assets = Array.isArray(d.assets) ? d.assets.slice(0, 8).map(r => Array.isArray(r) ? [s(r[0], 60), s(r[1], 20), n(r[2])] : null).filter(Boolean) : [];
+  const photo = typeof d.photo === "string" && /^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(d.photo) ? d.photo : "";
+  return { id: s(id, 80), user: true, owner: s(d.owner, 64), name: s(d.name, 80), wilaya: s(d.wilaya, 40), year: n(d.year), cap: n(d.cap), area: n(d.area),
+    imam: s(d.imam, 60), waqf: s(d.waqf, 600), assets, needs: s(d.needs, 400), goal: n(d.goal), raised: n(d.raised),
+    phone: String(d.phone || "").replace(/\D/g, "").slice(0, 15), photo, createdAt: s(d.createdAt, 30) };
+}
+function mosqueList() {
+  const mine = USERM.slice().sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
+  return mine.concat(MOSQUES.map(m => Object.assign({ phone: "", photo: "" }, m)));
+}
+const getMosque = id => mosqueList().find(m => m.id === id);
+
+function addBar() {
+  if (!INIT) return "";
+  if (canAdd()) return `<section class="card addbar"><div><h2>أضف مسجدًا</h2><p class="muted" style="margin:2px 0 0">صوّر المسجد واكتب معلوماته وأوقافه ليظهر في هذه الصفحة.</p></div><button class="primary" data-act="m-add">${svg("plus", 18)}<span>أضف مسجدًا</span></button></section>`;
+  return '<p class="note" style="margin:0">إضافة المساجد متاحة لمن دُعي بصلاحية «مساهم» وفتح الصفحة بحسابه.</p>';
 }
 
 function pMosques() {
+  if (S.form) return pMosqueForm();
+  const list = mosqueList();
   if (!S.mosque) {
-    return header("المساجد", "المساجد والأوقاف") + `<div class="grid g3">${MOSQUES.map(m => {
-      const inc = m.assets.reduce((s, a) => s + a[2], 0);
-      return `<button class="item" data-act="mosque" data-id="${m.id}">
-        <div class="row"><h3>${m.name}</h3><span class="pill info">${m.wilaya}</span></div>
-        <div class="muted">تتسع لـ ${fmt(m.cap)} مصلٍّ · تأسس ${m.year}</div>
-        <div class="row"><span class="muted">دخل الوقف السنوي</span><span class="price">${omr(inc)}</span></div>
+    return header("المساجد", "المساجد والأوقاف") + addBar() + `<div class="grid g3">${list.map(m => {
+      const inc = sumInc(m), pct = pctOf(m);
+      return `<button class="item" data-act="mosque" data-id="${esc(m.id)}">
+        ${m.photo ? `<img class="mphoto" src="${m.photo}" alt="صورة ${esc(m.name)}" loading="lazy">` : ""}
+        <div class="row"><h3>${esc(m.name)}</h3><span class="fav-row">${m.user ? '<span class="pill ok">مضاف</span>' : ""}<span class="pill info">${esc(m.wilaya)}</span></span></div>
+        <div class="muted">${m.cap ? "تتسع لـ " + fmt(m.cap) + " مصلٍّ" : "السعة غير مذكورة"}${m.year ? " · تأسس " + m.year : ""}</div>
+        <div class="row"><span class="muted">دخل الوقف السنوي</span><span class="price">${inc ? omr(inc) : "غير مذكور"}</span></div>
+        ${m.goal ? `<div><div class="bar" aria-hidden="true"><i class="grow" style="width:${pct}%;background:var(--accent)"></i></div><div class="row note" style="margin-top:6px"><span>مشروع المسجد</span><span>${pct}%</span></div></div>` : ""}
       </button>`;
     }).join("")}</div>`;
   }
-  const m = MOSQUES.find(x => x.id === S.mosque), inc = m.assets.reduce((s, a) => s + a[2], 0);
+  const m = getMosque(S.mosque);
+  if (!m) { S.mosque = null; return pMosques(); }
+  const inc = sumInc(m), pct = pctOf(m), num = m.phone ? (/^\d{8}$/.test(m.phone) ? "968" + m.phone : m.phone) : WA;
   const msg = `السلام عليكم، أرغب بالاستفسار عن وقف ${m.name} في ${m.wilaya}.`;
+  const give = `السلام عليكم، أرغب بالمساهمة في مشروع ${m.name}${m.needs ? ": " + m.needs : ""}`;
+  const by = m.user ? `<div class="note">أضافه ${esc((PROF[m.owner] && PROF[m.owner].name) || "زائر")}</div>` : "";
   return `<button class="back" data-act="back-mosque">${svg("back", 18)}<span>كل المساجد</span></button>` +
     header(m.wilaya, m.name) + `
   <div class="grid split">
     <div class="grid">
+      ${m.photo ? `<section class="card"><img class="mphoto big" src="${m.photo}" alt="صورة ${esc(m.name)}">${by}</section>` : ""}
       <section class="card"><div class="card-title"><h2>معلومات المسجد</h2></div>
-        <dl class="kv"><dt>سنة التأسيس</dt><dd>${m.year}</dd><dt>السعة</dt><dd>${fmt(m.cap)} مصلٍّ</dd><dt>المساحة</dt><dd>${fmt(m.area)} م²</dd><dt>الإمام</dt><dd>${m.imam}</dd></dl>
+        <dl class="kv"><dt>سنة التأسيس</dt><dd>${m.year || "غير مذكورة"}</dd><dt>السعة</dt><dd>${m.cap ? fmt(m.cap) + " مصلٍّ" : "غير مذكورة"}</dd><dt>المساحة</dt><dd>${dash(m.area, " م²")}</dd><dt>الإمام</dt><dd>${esc(m.imam) || "غير مذكور"}</dd></dl>
+        ${m.photo ? "" : by}
       </section>
       <section class="card"><div class="card-title"><h2>وقف المسجد</h2></div>
-        <p style="margin-top:0">${m.waqf}</p>
-        <ul class="list">${m.assets.map(a => `<li><span>${a[0]} <span class="muted">· ${a[1]}</span></span><b>${omr(a[2])} / سنة</b></li>`).join("")}</ul>
+        <p style="margin-top:0;white-space:pre-wrap">${esc(m.waqf) || "لم يُكتب وصف للوقف."}</p>
+        ${m.assets.length ? `<ul class="list">${m.assets.map(a => `<li><span>${esc(a[0])} <span class="muted">· ${esc(a[1])}</span></span><b>${a[2] ? omr(a[2]) + " / سنة" : "غير مذكور"}</b></li>`).join("")}</ul>` : '<p class="note" style="margin:0">لم تُذكر أصول وقفية.</p>'}
       </section>
     </div>
     <div class="grid">
-      <section class="card"><div class="card-title"><h2>إجمالي دخل الوقف</h2></div>
-        <div class="big">${omr(inc)}</div><div class="note">في السنة</div></section>
-      <section class="card"><div class="card-title"><h2>احتياجات المسجد</h2></div><p style="margin:0">${m.needs}</p></section>
-      <section class="card">${waBtn(WA, msg, "تواصل مع إدارة الوقف")}<div style="margin-top:10px;text-align:center"><span class="phone">${phoneTxt(WA)}</span></div></section>
+      ${inc ? `<section class="card"><div class="card-title"><h2>إجمالي دخل الوقف</h2></div><div class="big" data-count="${inc}" data-suffix=" ر.ع.">${omr(inc)}</div><div class="note">في السنة</div></section>` : ""}
+      ${(m.needs || m.goal) ? `<section class="card"><div class="card-title"><h2>مشروع المسجد</h2>${m.goal ? `<span class="pill warn">${pct}%</span>` : ""}</div>
+        <p style="margin-top:0;white-space:pre-wrap">${esc(m.needs) || "لم يُكتب وصف للمشروع."}</p>
+        ${m.goal ? `<div class="bar" style="height:12px" aria-hidden="true"><i class="grow" style="width:${pct}%;background:linear-gradient(90deg,var(--accent),var(--ok))"></i></div>
+        <div class="row" style="margin:8px 0 14px"><span class="muted">تم جمع <b data-count="${m.raised}" data-suffix=" ر.ع.">${omr(m.raised)}</b></span><span class="muted">الهدف ${omr(m.goal)}</span></div>` : ""}
+        ${waBtn(num, give, "ساهم في المشروع")}</section>` : ""}
+      <section class="card">${waBtn(num, msg, "تواصل مع إدارة الوقف")}<div style="margin-top:10px;text-align:center"><span class="phone">${phoneTxt(num)}</span></div></section>
+      ${canEditM(m) ? `<section class="card"><div class="card-title"><h2>إدارة المعلومات</h2></div><div class="btns"><button class="locbtn" data-act="m-edit" data-id="${esc(m.id)}"><span>تعديل</span></button><button class="locbtn danger" data-act="m-del" data-id="${esc(m.id)}"><span>حذف</span></button></div></section>` : ""}
     </div>
   </div>`;
+}
+
+const ASSET_TYPES = ["إيجار", "محصول", "تبرعات", "أخرى"];
+function rowHtml(a) {
+  a = a || ["", "إيجار", ""];
+  return `<div class="arow"><input class="inp" data-r="n" maxlength="60" placeholder="مثال: محل تجاري" aria-label="اسم الأصل" value="${esc(a[0])}"><select class="inp" data-r="t" aria-label="النوع">${ASSET_TYPES.map(t => `<option ${t === a[1] ? "selected" : ""}>${t}</option>`).join("")}</select><input class="inp" data-r="i" type="number" min="0" inputmode="numeric" placeholder="الدخل السنوي" aria-label="الدخل السنوي بالريال" value="${a[2] ? esc(a[2]) : ""}"><button type="button" class="x" data-act="m-row-del" aria-label="حذف الصف">${svg("x", 18)}</button></div>`;
+}
+function pMosqueForm() {
+  const m = S.form.id ? getMosque(S.form.id) : null, v = m || { assets: [] };
+  const f = (id, label, val, extra) => `<div class="ctl"><label for="${id}">${label}</label><input class="inp" id="${id}" value="${esc(val)}" ${extra || ""}></div>`;
+  const nf = (id, label, val, ph) => f(id, label, val || "", `type="number" min="0" inputmode="numeric" placeholder="${ph || ""}"`);
+  const rows = (v.assets && v.assets.length ? v.assets : [null]).map(rowHtml).join("");
+  return `<button class="back" data-act="m-cancel">${svg("back", 18)}<span>رجوع</span></button>` +
+    header("المساجد", m ? "تعديل المسجد" : "إضافة مسجد") + `
+  <div class="frm">
+    <section class="card">
+      <div class="card-title"><h2>صورة المسجد</h2></div>
+      <label class="drop" for="m_photo"><img id="m_prev" class="mphoto" alt="معاينة الصورة" ${FORM.photo ? `src="${FORM.photo}"` : "hidden"}><span id="m_prevtxt" ${FORM.photo ? "hidden" : ""}>${svg("pin", 22)}<span>اضغط لالتقاط صورة أو اختيارها</span></span></label>
+      <input class="sr" id="m_photo" type="file" accept="image/*">
+      <div class="note" style="margin-top:8px">تُصغَّر الصورة تلقائيًا قبل الحفظ.</div>
+      <button class="locbtn" type="button" id="m_clr" data-act="m-photo-clear" style="margin-top:8px" ${FORM.photo ? "" : "hidden"}><span>إزالة الصورة</span></button>
+    </section>
+    <section class="card">
+      <div class="card-title"><h2>معلومات المسجد</h2></div>
+      <div class="two">${f("m_name", "اسم المسجد *", v.name || "", 'maxlength="80"')}${f("m_wilaya", "الولاية أو المنطقة *", v.wilaya || "", 'maxlength="40"')}</div>
+      <div class="two">${nf("m_year", "سنة التأسيس", v.year, "مثال: 2005")}${nf("m_cap", "السعة (عدد المصلين)", v.cap, "مثال: 500")}</div>
+      <div class="two">${nf("m_area", "المساحة (م²)", v.area, "مثال: 900")}${f("m_imam", "الإمام", v.imam || "", 'maxlength="60"')}</div>
+    </section>
+    <section class="card">
+      <div class="card-title"><h2>وقف المسجد</h2></div>
+      <div class="ctl"><label for="m_waqf">وصف الوقف</label><textarea class="inp" id="m_waqf" rows="3" maxlength="600" placeholder="مثال: وقف عقاري تصرف عوائده على صيانة المسجد.">${esc(v.waqf || "")}</textarea></div>
+      <div class="note" style="margin-bottom:8px">أصول الوقف (اختياري، حتى 8):</div>
+      <div id="m_rows" class="rows">${rows}</div>
+      <button class="locbtn" type="button" data-act="m-row-add" style="margin-top:10px"><span>أضف أصلًا</span></button>
+    </section>
+    <section class="card">
+      <div class="card-title"><h2>مشروع المسجد والتواصل</h2></div>
+      <div class="ctl"><label for="m_needs">احتياج المسجد</label><textarea class="inp" id="m_needs" rows="2" maxlength="400" placeholder="مثال: صيانة المكيفات وتوسعة مصلى النساء.">${esc(v.needs || "")}</textarea></div>
+      <div class="two">${nf("m_goal", "المبلغ المطلوب (ر.ع.)", v.goal, "مثال: 8000")}${nf("m_raised", "المبلغ المجموع (ر.ع.)", v.raised, "مثال: 2500")}</div>
+      ${f("m_phone", "رقم واتساب للتواصل (اختياري)", v.phone ? v.phone.replace(/^968/, "") : "", 'type="tel" inputmode="numeric" maxlength="12" dir="ltr" placeholder="91234567"')}
+    </section>
+    <div class="err" id="m_err" role="alert"></div>
+    <div class="btns"><button class="primary" id="m_save" data-act="m-save" style="flex:1 1 200px">${m ? "حفظ التعديلات" : "حفظ المسجد"}</button><button class="locbtn" data-act="m-cancel"><span>إلغاء</span></button></div>
+  </div>`;
+}
+
+async function shrinkToDataUrl(file) {
+  const bmp = await createImageBitmap(file);
+  const steps = [[1000, .75], [900, .65], [760, .6], [640, .55]];
+  for (let i = 0; i < steps.length; i++) {
+    const k = Math.min(1, steps[i][0] / Math.max(bmp.width, bmp.height)), c = document.createElement("canvas");
+    c.width = Math.max(1, Math.round(bmp.width * k)); c.height = Math.max(1, Math.round(bmp.height * k));
+    c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+    const url = c.toDataURL("image/jpeg", steps[i][1]);
+    if (url.length < 170000) return url;
+  }
+  throw new Error("big");
+}
+function formErr(msg) { const e = document.getElementById("m_err"); if (e) e.textContent = msg; }
+function showPhoto() {
+  const p = document.getElementById("m_prev"), t = document.getElementById("m_prevtxt"), c = document.getElementById("m_clr");
+  if (!p) return;
+  if (FORM.photo) { p.src = FORM.photo; p.hidden = false; t.hidden = true; c.hidden = false; } else { p.removeAttribute("src"); p.hidden = true; t.hidden = false; c.hidden = true; }
+}
+async function saveMosque() {
+  if (FORM.busy || !canAdd()) return;
+  const g = id => document.getElementById(id).value.trim();
+  const m = S.form.id ? getMosque(S.form.id) : null;
+  const name = g("m_name").slice(0, 80), wilaya = g("m_wilaya").slice(0, 40);
+  if (!name) return formErr("اكتب اسم المسجد.");
+  if (!wilaya) return formErr("اكتب الولاية أو المنطقة.");
+  const nn = id => { const v = +g(id); return isFinite(v) && v >= 0 ? Math.round(v) : 0; };
+  const year = nn("m_year"), goal = nn("m_goal"), raised = nn("m_raised");
+  if (year && (year < 600 || year > 2100)) return formErr("سنة التأسيس غير صحيحة.");
+  if (goal && raised > goal) return formErr("المبلغ المجموع أكبر من المبلغ المطلوب.");
+  let ph = g("m_phone").replace(/\D/g, "");
+  if (ph && !/^(968)?\d{8}$/.test(ph)) return formErr("رقم الواتساب يجب أن يكون 8 أرقام عمانية.");
+  if (/^\d{8}$/.test(ph)) ph = "968" + ph;
+  const assets = Array.from(document.querySelectorAll("#m_rows .arow")).slice(0, 8).map(r => [
+    r.querySelector('[data-r="n"]').value.trim().slice(0, 60), r.querySelector('[data-r="t"]').value,
+    Math.max(0, Math.round(+r.querySelector('[data-r="i"]').value || 0))]).filter(a => a[0]);
+  const now = new Date().toISOString(), id = m ? m.id : "m" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const rec = { owner: m ? m.owner : ME.id, name, wilaya, year, cap: nn("m_cap"), area: nn("m_area"), imam: g("m_imam").slice(0, 60), waqf: g("m_waqf").slice(0, 600),
+    assets, needs: g("m_needs").slice(0, 400), goal, raised, phone: ph, photo: FORM.photo || "", createdAt: m ? m.createdAt : now, updatedAt: now };
+  const btn = document.getElementById("m_save");
+  FORM.busy = true; btn.disabled = true; btn.textContent = "جارٍ الحفظ…"; formErr("");
+  try {
+    await DB.doc("mosques/" + id).set(rec);
+    USERM = USERM.filter(x => x.id !== id); USERM.push(cleanM(id, rec));
+    FORM.busy = false; S.form = null; S.mosque = id; render(true); toTop();
+  } catch (e) {
+    FORM.busy = false; btn.disabled = false; btn.textContent = m ? "حفظ التعديلات" : "حفظ المسجد";
+    formErr(e && e.code === "invalid_argument" ? "لا تملك صلاحية الكتابة. اطلب صلاحية «مساهم» من صاحب الموقع."
+      : e && e.code === "quota_exceeded" ? "امتلأت مساحة التخزين. أخبر صاحب الموقع." : "تعذّر الحفظ، حاول مرة أخرى.");
+  }
+}
+async function deleteMosque(id) {
+  const m = getMosque(id); if (!canEditM(m)) return;
+  try { await DB.doc("mosques/" + id).delete(); USERM = USERM.filter(x => x.id !== id); S.mosque = null; render(true); toTop(); }
+  catch (e) { render(false); }
+}
+async function initCollab() {
+  try {
+    if (!window.claude || !window.claude.use) return;
+    USER = await window.claude.use("user");
+    if (!USER) return;
+    const me = await USER.me();
+    if (!me.id) return;
+    ME.id = me.id; ME.name = me.name;
+    ME.admin = (await USER.isOwner()) || (await USER.canEdit());
+    ME.canWrite = (await USER.can("data.write")) !== false;
+    DB = await window.claude.use("db");
+    if (!DB) return;
+    DB.collection("mosques").onSnapshot(async snap => {
+      USERM = snap.docs.map(d => cleanM(d.id, d.data() || {}));
+      try { PROF = await USER.profiles(Array.from(new Set(USERM.map(x => x.owner).filter(Boolean)))); } catch (e) { /* الأسماء اختيارية */ }
+      INIT = true; refreshMosques();
+    }, () => { INIT = true; refreshMosques(); });
+  } catch (e) { /* الصفحة تعمل بدون التعاون */ }
+  finally { INIT = true; refreshMosques(); }
+}
+function refreshMosques() {
+  const pg = location.hash.slice(1) || "home";
+  if ((pg === "mosques" || pg === "home") && !S.form && !FORM.busy && typeof render === "function") render(false);
 }
 
 /* ============ صورة توضيحية من الأعلى ============ */
@@ -572,7 +958,7 @@ function aerial(l) {
     }
   }
   /* حدود الأرض */
-  s += `<rect x="${x0}" y="${y0}" width="${w}" height="${h}" fill="rgba(18,160,170,.20)" stroke="#ffe14d" stroke-width="3"/>`;
+  s += `<rect class="bound" x="${x0}" y="${y0}" width="${w}" height="${h}" fill="rgba(18,160,170,.20)" stroke="#ffe14d" stroke-width="3"/><circle class="pulse" cx="300" cy="${y0 + h / 2}" r="7" fill="#ffe14d"/><circle cx="300" cy="${y0 + h / 2}" r="4" fill="#ffe14d" stroke="#0b5f6b" stroke-width="1.5"/>`;
   s += `<rect x="${300 - 52}" y="${y0 - 34}" width="104" height="24" rx="12" fill="#0b5f6b"/><text x="300" y="${y0 - 17}" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">${fmt(l.size)} م²</text>`;
   /* الشمال والمقياس */
   s += `<g transform="translate(34,36)"><circle r="19" fill="#000" opacity=".4"/><path d="M0 -12 L6 7 L0 3 L-6 7Z" fill="#fff"/><text y="17" text-anchor="middle" font-size="9" fill="#fff">ش</text></g>`;
@@ -586,7 +972,7 @@ function zw(inner) {
 function lightbox(l) {
   const big = S.zoom === 2;
   const media = l.photo ? `<img src="${l.photo}" alt="${l.title}">` : aerial(l);
-  return `<div class="lightbox" role="dialog" aria-modal="true" aria-label="عرض الصورة بحجم كبير">
+  return `<div class="lightbox${S.pop === "zoom" ? " pop" : ""}" role="dialog" aria-modal="true" aria-label="عرض الصورة بحجم كبير">
     <div class="lb-bar"><span>${l.title}</span><span class="lb-tip">${big ? "اضغط على الصورة للتصغير" : "اضغط على الصورة للتكبير أكثر"}</span><button class="lb-x" data-act="close-zoom" aria-label="إغلاق">${svg("x", 26)}</button></div>
     <div class="lb-scroll" data-act="close-zoom" data-overlay="1"><div class="lb-media ${big ? "big" : ""}" data-act="zoom-toggle" role="button" tabindex="0" aria-label="تكبير أو تصغير الصورة">${media}</div></div>
   </div>`;
@@ -594,7 +980,7 @@ function lightbox(l) {
 function locModal(l) {
   const msg = `السلام عليكم، أرغب بالاستفسار عن "${l.title}" في ${l.loc} (${fmt(l.size)} م²) ${l.price ? " بسعر " + fmt(l.price) + " ر.ع." : ""}`;
   const q = encodeURIComponent(l.loc + " عمان");
-  return `<div class="modal" data-act="close-loc" data-overlay="1"><div class="sheet" role="dialog" aria-modal="true" aria-label="موقع ${l.title}">
+  return `<div class="modal${S.pop === "loc" ? " pop" : ""}" data-act="close-loc" data-overlay="1"><div class="sheet" role="dialog" aria-modal="true" aria-label="موقع ${l.title}">
     <div class="row"><div><h2>${l.title}</h2><div class="muted">${l.loc} · ${fmt(l.size)} م²${l.price ? " · " + omr(l.price) : ""}</div></div>
       <button class="back" data-act="close-loc" aria-label="إغلاق">${svg("x", 24)}</button></div>
     ${l.plan ? `<div class="plan-wrap">${zw(`<img class="plan-img" src="${l.photo}" alt="الرسم المساحي للقطعة">`)}<dl class="kv">${l.plan.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("")}</dl></div>` : zw(l.photo ? `<img class="aerial" src="${l.photo}" alt="صورة جوية للموقع">` : aerial(l))}
@@ -605,40 +991,140 @@ function locModal(l) {
 
 /* ============ التوجيه والأحداث ============ */
 const view = document.getElementById("view");
-function render() {
-  const r = (location.hash.slice(1) || "home");
-  const page = { home: pHome, housing: pHousing, land: pLand, mosques: pMosques }[r] ? r : "home";
+const PAGES = { home: pHome, housing: pHousing, land: pLand, mosques: pMosques, calc: pCalc, favs: pFavs };
+const reduce = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+let PENDING = null;
+
+function setNum(el, to, dur) {
+  const fv = v => (el.dataset.prefix || "") + fmt(Math.round(v)) + (el.dataset.suffix || "");
+  const from = el._v || 0;
+  cancelAnimationFrame(el._raf);
+  if (reduce || from === to) { el._v = to; el.textContent = fv(to); return; }
+  const t0 = performance.now(), d = dur || 800;
+  const step = now => {
+    const k = Math.min(1, (now - t0) / d), e = 1 - Math.pow(1 - k, 3);
+    el._v = from + (to - from) * e; el.textContent = fv(el._v);
+    if (k < 1) el._raf = requestAnimationFrame(step); else { el._v = to; el.textContent = fv(to); }
+  };
+  el._raf = requestAnimationFrame(step);
+}
+function runCounts() {
+  view.querySelectorAll("[data-count]").forEach(el => {
+    el._v = 0;
+    if (!reduce) el.textContent = (el.dataset.prefix || "") + "0" + (el.dataset.suffix || "");
+    setNum(el, +el.dataset.count, +el.dataset.dur || 800);
+  });
+}
+function updateFavBadge() {
+  const b = document.getElementById("favN"); if (!b) return;
+  b.textContent = FAVS.length; b.hidden = !FAVS.length;
+}
+function toggleFav(k) {
+  const i = FAVS.indexOf(k);
+  if (i >= 0) FAVS.splice(i, 1); else FAVS.push(k);
+  saveFav();
+  const on = isFav(k);
+  view.querySelectorAll('[data-k="' + k + '"]').forEach(b => {
+    b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on));
+    b.classList.remove("beat"); void b.offsetWidth; if (on) b.classList.add("beat");
+  });
+  updateFavBadge();
+  if ((location.hash.slice(1) || "home") === "favs") render(false);
+}
+function stagger(sel) { view.querySelectorAll(sel).forEach((el, i) => { el.style.setProperty("--i", Math.min(i, 14)); el.classList.remove("rise"); void el.offsetWidth; el.classList.add("rise"); }); }
+
+function render(anim) {
+  const r = location.hash.slice(1) || "home";
+  const page = PAGES[r] ? r : "home";
   document.querySelectorAll("[data-nav]").forEach(a => a.classList.toggle("on", a.dataset.nav === page));
-  view.innerHTML = { home: pHome, housing: pHousing, land: pLand, mosques: pMosques }[page]();
-  document.body.style.overflow = (S.loc && page === "land") ? "hidden" : "";
+  view.classList.toggle("anim", !!anim);
+  view.innerHTML = PAGES[page]();
+  S.pop = null;
+  if (anim) view.querySelectorAll(".head,.hero,.entry,.item,.card,.chips").forEach((el, i) => el.style.setProperty("--i", Math.min(i, 14)));
+  runCounts();
+  updateFavBadge();
+  if (page === "calc") requestAnimationFrame(() => requestAnimationFrame(updateRing));
+  document.body.style.overflow = S.loc ? "hidden" : "";
   const sc = document.querySelector(".lb-scroll");
   if (sc && S.zoom === 2) { sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2; sc.scrollTop = (sc.scrollHeight - sc.clientHeight) / 2; }
 }
-window.addEventListener("hashchange", () => { S.area = null; S.plot = null; S.mosque = null; S.loc = null; S.zoom = 0; render(); window.scrollTo(0, 0); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") { if (S.zoom) { S.zoom = 0; render(); } else if (S.loc) { S.loc = null; render(); } } });
+function toTop() { window.scrollTo({ top: 0, behavior: "instant" }); }
+function go(page, patch) {
+  if ((location.hash.slice(1) || "home") === page) {
+    Object.assign(S, { area: null, plot: null, mosque: null, loc: null, zoom: 0, form: null }, patch || {});
+    render(true); toTop();
+  } else { PENDING = patch || {}; location.hash = page; }
+}
+window.addEventListener("hashchange", () => {
+  Object.assign(S, { area: null, plot: null, mosque: null, loc: null, zoom: 0, form: null });
+  if (PENDING) { Object.assign(S, PENDING); PENDING = null; }
+  render(true); toTop();
+});
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  if (S.zoom) { S.zoom = 0; render(false); } else if (S.loc) { S.loc = null; render(false); }
+});
 
 view.addEventListener("click", e => {
   const t = e.target.closest("[data-act]");
   if (!t) return;
   const act = t.dataset.act;
   if (t.dataset.overlay && e.target !== t) return;
-  if (act === "loc") { S.loc = +t.dataset.id; S.zoom = 0; }
-  else if (act === "close-loc") { S.loc = null; S.zoom = 0; }
-  else if (act === "zoom") { S.zoom = 1; }
-  else if (act === "zoom-toggle") { S.zoom = S.zoom === 1 ? 2 : 1; }
-  else if (act === "close-zoom") { S.zoom = 0; }
-  else if (act === "area") { S.area = t.dataset.id; S.plot = null; window.scrollTo(0, 0); }
-  else if (act === "plot") { S.plot = +t.dataset.i; }
-  else if (act === "back-housing") { S.area = null; S.plot = null; }
-  else if (act === "chip") { S.filter = t.dataset.t; }
-  else if (act === "mosque") { S.mosque = t.dataset.id; window.scrollTo(0, 0); }
-  else if (act === "back-mosque") { S.mosque = null; }
-  render();
+  let anim = false;
+  switch (act) {
+    case "loc": S.loc = +t.dataset.id; S.zoom = 0; S.pop = "loc"; break;
+    case "close-loc": S.loc = null; S.zoom = 0; break;
+    case "zoom": S.zoom = 1; S.pop = "zoom"; break;
+    case "zoom-toggle": S.zoom = S.zoom === 1 ? 2 : 1; break;
+    case "close-zoom": S.zoom = 0; break;
+    case "area": S.area = t.dataset.id; S.plot = null; anim = true; toTop(); break;
+    case "plot": S.plot = +t.dataset.i; break;
+    case "back-housing": S.area = null; S.plot = null; anim = true; break;
+    case "chip": S.filter = t.dataset.t; break;
+    case "mosque": S.mosque = t.dataset.id; anim = true; toTop(); break;
+    case "back-mosque": S.mosque = null; anim = true; break;
+    case "calc-land": S.calc.price = LANDS.find(l => l.id === +t.dataset.id).price; break;
+    case "m-add": if (!canAdd()) return; S.form = { id: null }; FORM = { photo: "", busy: false }; S.mosque = null; anim = true; toTop(); break;
+    case "m-edit": { const mm = getMosque(t.dataset.id); if (!canEditM(mm)) return; S.form = { id: mm.id }; FORM = { photo: mm.photo || "", busy: false }; anim = true; toTop(); break; }
+    case "m-cancel": if (FORM.busy) return; S.form = null; anim = true; break;
+    case "m-row-add": { const box = document.getElementById("m_rows"); if (box && box.children.length < 8) box.insertAdjacentHTML("beforeend", rowHtml()); return; }
+    case "m-row-del": { const r = t.closest(".arow"), box = document.getElementById("m_rows"); if (box && box.children.length > 1) r.remove(); else if (r) r.querySelectorAll("input").forEach(i => { i.value = ""; }); return; }
+    case "m-photo-clear": FORM.photo = ""; showPhoto(); return;
+    case "m-save": saveMosque(); return;
+    case "m-del": t.dataset.act = "m-del-ok"; t.querySelector("span").textContent = "تأكيد الحذف"; return;
+    case "m-del-ok": deleteMosque(t.dataset.id); return;
+    case "fav": toggleFav(t.dataset.k); return;
+    case "open-land": go("land", { loc: +t.dataset.id, pop: "loc" }); return;
+    case "go-area": go("housing", { area: t.dataset.id }); return;
+    case "go-plot": go("housing", { area: t.dataset.id, plot: +t.dataset.i }); return;
+    case "go-mosque": go("mosques", { mosque: t.dataset.id }); return;
+    default: return;
+  }
+  render(anim);
+  if (act === "chip") stagger(".item");
+});
+view.addEventListener("input", e => {
+  const t = e.target;
+  if (t.id === "q") { renderResults(t.value); return; }
+  const k = t.dataset && t.dataset.calc;
+  if (!k) return;
+  let v = parseFloat(t.value); if (!(v >= 0)) v = 0;
+  S.calc[k] = v;
+  const lab = view.querySelector('[data-lab="' + k + '"]'); if (lab) lab.textContent = v;
+  updateCalc();
+});
+view.addEventListener("change", async e => {
+  if (e.target.id !== "m_photo") return;
+  const f = e.target.files && e.target.files[0]; if (!f) return;
+  try { FORM.photo = await shrinkToDataUrl(f); showPhoto(); formErr(""); }
+  catch (x) { formErr("تعذّر قراءة الصورة، جرّب صورة أخرى بصيغة JPG أو PNG."); }
+  e.target.value = "";
 });
 view.addEventListener("keydown", e => {
   if ((e.key === "Enter" || e.key === " ") && e.target.matches('[role="button"]')) { e.preventDefault(); e.target.dispatchEvent(new MouseEvent("click", { bubbles: true })); }
 });
-render();
+render(true);
+initCollab();
 </script>
 
 </body></html>
